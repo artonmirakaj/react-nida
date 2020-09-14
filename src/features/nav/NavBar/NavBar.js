@@ -9,7 +9,7 @@ class NavBar extends Component {
         <Container>
           <Menu.Item header>
             <img src="assets/logo.png" alt="logo" />
-            Nidavellir
+            react-nida
           </Menu.Item>
           <Menu.Item name="Events" />
           <Menu.Item>
