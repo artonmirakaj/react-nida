@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { Button, Container, Menu } from 'semantic-ui-react';
 
 
@@ -7,13 +8,21 @@ class NavBar extends Component {
     return (
       <Menu inverted fixed="top">
         <Container>
-          <Menu.Item header>
+          <Menu.Item as={NavLink} exact to='/' header>
             <img src="assets/logo.png" alt="logo" />
             react-nida
           </Menu.Item>
-          <Menu.Item name="Events" />
+          <Menu.Item as={NavLink} to='/events' name="Events" />
+          <Menu.Item as={NavLink} to='/people' name="People" />
           <Menu.Item>
-            <Button floated="right" positive inverted content="Create Event" />
+            <Button
+              as={Link}
+              to='/createEvent'
+              floated="right"
+              positive
+              inverted
+              content="Create Event"
+            />
           </Menu.Item>
           <Menu.Item position="right">
             <Button basic inverted content="Login" />
