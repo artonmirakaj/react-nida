@@ -6,44 +6,45 @@ import SignedOutMenu from '../Menus/SignedOutMenu';
 
 class NavBar extends Component {
   state = {
-    authenticated: false
-  }
+    authenticated: false,
+  };
 
   handleSignIn = () => this.setState({ authenticated: true });
 
   handleSignOut = () => {
     this.setState({ authenticated: false });
     this.props.history.push('/');
-  }
+  };
 
   render() {
     const { authenticated } = this.state;
     return (
-      <Menu inverted fixed="top">
+      <Menu inverted fixed='top'>
         <Container>
           <Menu.Item as={NavLink} exact to='/' header>
             Home
           </Menu.Item>
-          <Menu.Item as={NavLink} to='/events' name="Events" />
-          <Menu.Item as={NavLink} to='/people' name="People" />
-          <Menu.Item as={NavLink} to='/test' name="Test" />
+          <Menu.Item as={NavLink} exact to='/events' name='Events' />
+          <Menu.Item as={NavLink} to='/people' name='People' />
+          <Menu.Item as={NavLink} to='/test' name='Test' />
           <Menu.Item>
             <Button
               as={Link}
               to='/createEvent'
-              floated="right"
+              floated='right'
               positive
               inverted
-              content="Create Event"
+              content='Create Event'
             />
           </Menu.Item>
-          {authenticated
-            ? <SignedInMenu signOut={this.handleSignOut} />
-            : <SignedOutMenu signIn={this.handleSignIn} />
-          }
+          {authenticated ? (
+            <SignedInMenu signOut={this.handleSignOut} />
+          ) : (
+            <SignedOutMenu signIn={this.handleSignIn} />
+          )}
         </Container>
       </Menu>
-    )
+    );
   }
 }
 
