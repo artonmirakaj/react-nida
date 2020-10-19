@@ -1,55 +1,30 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import './HomePage.css';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Container, Header, Icon, Image, Segment } from 'semantic-ui-react';
 
 const HomePage = ({ history }) => {
   return (
-    <Fragment>
-      <section>
-        <ul>
-          <li>
-            <Link as='a'>
-              <Icon name='thumbs up icon' />
-              <span> - Like </span>
-            </Link>
-          </li>
-          <li>
-            <Link as='a'>
-              <Icon name='comments icon' />
-              <span> - Comment </span>
-            </Link>
-          </li>
-          <li>
-            <Link as='a'>
-              <Icon name='share' />
-              <span> - Share </span>
-            </Link>
-          </li>
-          <li>
-            <Link as='a'>
-              <Icon name='heart' />
-              <span> - Subscribe </span>
-            </Link>
-          </li>
-        </ul>
-        <div className='content'>
-          <h2>Welcome</h2>
-          <Button
-            onClick={() => history.push('/events')}
-            size='huge'
-            inverted
-          >
-            Get started
-            <Icon name='angle double right' />
-          </Button>
-        </div>
-        <div className='wave' />
-      </section>
-      <div className='main'>
-          <p>Random text</p>
-        </div>
-    </Fragment>
+    <Segment inverted textAlign='center' vertical className='masthead'>
+    <Container text>
+      <Header as='h1' inverted>
+        <Image
+          size='massive'
+          src='/assets/logo.png'
+          alt='logo'
+          style={{ marginBottom: 12 }}
+        />
+        Re-vents
+      </Header>
+      <Button
+        onClick={() => history.push('/events')}
+        size='huge'
+        inverted
+      >
+        Get started
+        <Icon name='right arrow' inverted />
+      </Button>
+    </Container>
+  </Segment>
   )
 }
 
