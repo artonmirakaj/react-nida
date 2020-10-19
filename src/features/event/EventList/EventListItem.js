@@ -43,8 +43,6 @@ class EventListItem extends Component {
             content='Delete'
           />
           <Button
-            // onClick={() => selectEvent(event)}
-            // as='a'
             as={Link}
             to={`/events/${event.id}`}
             color='teal'
