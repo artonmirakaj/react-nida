@@ -18,29 +18,30 @@ const category = [
 ];
 
 class EventForm extends Component {
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (this.state.id) {
-      this.props.updateEvent(this.state);
-      this.props.history.push(`/events/${this.state.id}`);
+  onFormSubmit = (values) => {
+    if (this.props.initialValues.id) {
+      this.props.updateEvent(values);
+      this.props.history.push(`/events/${this.props.initialValues.id}`);
     } else {
       const newEvent = {
-        ...this.state,
+        ...values,
         id: cuid(),
         hostPhotoURL: '/assets/user.png',
+        hostedBy: 'Bob',
       };
       this.props.createEvent(newEvent);
-      this.props.history.push(`/events`);
+      this.props.history.push(`/events/${newEvent.id}`);
     }
   };
 
   render() {
+    const { history, initialValues } = this.props;
     return (
       <Grid>
         <Grid.Column width={10}>
           <Segment>
             <Header sub color='teal' content='Event Details' />
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
               <Field
                 name='title'
                 component={TextInput}
@@ -50,7 +51,7 @@ class EventForm extends Component {
                 name='category'
                 component={SelectInput}
                 options={category}
-                multiple={true}
+                // multiple={true}
                 placeholder='What is your event about?'
               />
               <Field
@@ -79,7 +80,14 @@ class EventForm extends Component {
               <Button positive type='submit'>
                 Submit
               </Button>
-              <Button onClick={this.props.history.goBack} type='button'>
+              <Button
+                onClick={
+                  initialValues.id
+                    ? () => history.push(`/events/${initialValues.id}`)
+                    : () => history.push('/events')
+                }
+                type='button'
+              >
                 Cancel
               </Button>
             </Form>
@@ -93,19 +101,13 @@ class EventForm extends Component {
 const mapStateToProps = (state, ownProps) => {
   const eventId = ownProps.match.params.id;
 
-  let event = {
-    title: '',
-    date: '',
-    city: '',
-    venue: '',
-    hostedBy: '',
-  };
+  let event = {};
 
   if (eventId && state.events.length > 0) {
     event = state.events.filter((event) => event.id === eventId)[0];
   }
 
-  return { event };
+  return { initialValues: event };
 };
 
 const mapDispatchToProps = (dispatch) => ({
