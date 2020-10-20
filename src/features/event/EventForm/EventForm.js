@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { updateEvent, createEvent } from '../eventActions';
 import { Button, Form, Segment } from 'semantic-ui-react';
+import TextInput from '../../../app/common/form/TextInput';
 
 class EventForm extends Component {
   state = { ...this.props.event };
@@ -43,7 +44,7 @@ class EventForm extends Component {
     return (
       <Segment>
         <Form onSubmit={this.handleFormSubmit}>
-          <Field name='title' component='input' placeholder='Event Title' />
+          <Field name='title' component={TextInput} placeholder='Event Title' />
           <Form.Field>
             <label>Event Date</label>
             <input
