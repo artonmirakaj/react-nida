@@ -5,6 +5,17 @@ import { reduxForm, Field } from 'redux-form';
 import { updateEvent, createEvent } from '../eventActions';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import TextInput from '../../../app/common/form/TextInput';
+import TextArea from '../../../app/common/form/TextArea';
+import SelectInput from '../../../app/common/form/SelectInput';
+
+const category = [
+  { key: 'drinks', text: 'Drinks', value: 'drinks' },
+  { key: 'culture', text: 'Culture', value: 'culture' },
+  { key: 'film', text: 'Film', value: 'film' },
+  { key: 'food', text: 'Food', value: 'food' },
+  { key: 'music', text: 'Music', value: 'music' },
+  { key: 'travel', text: 'Travel', value: 'travel' },
+];
 
 class EventForm extends Component {
   handleFormSubmit = (e) => {
@@ -37,12 +48,15 @@ class EventForm extends Component {
               />
               <Field
                 name='category'
-                component={TextInput}
+                component={SelectInput}
+                options={category}
+                multiple={true}
                 placeholder='What is your event about?'
               />
               <Field
                 name='description'
-                component={TextInput}
+                component={TextArea}
+                rows={3}
                 placeholder='Tell us about your event'
               />
               <Header sub color='teal' content='Event Location Details' />
