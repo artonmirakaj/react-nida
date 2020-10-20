@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cuid from 'cuid';
 import { connect } from 'react-redux';
+import { reduxForm, Field } from 'redux-form';
 import { updateEvent, createEvent } from '../eventActions';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
@@ -42,15 +43,7 @@ class EventForm extends Component {
     return (
       <Segment>
         <Form onSubmit={this.handleFormSubmit}>
-          <Form.Field>
-            <label>Event Title</label>
-            <input
-              name='title'
-              value={title}
-              onChange={this.handleInputChange}
-              placeholder='Event Title'
-            />
-          </Form.Field>
+          <Field name='title' component='input' placeholder='Event Title' />
           <Form.Field>
             <label>Event Date</label>
             <input
@@ -123,4 +116,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateEvent: (event) => dispatch(updateEvent(event)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(reduxForm({ form: 'eventForm' })(EventForm));
