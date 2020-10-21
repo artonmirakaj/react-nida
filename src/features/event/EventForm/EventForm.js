@@ -7,6 +7,12 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import TextInput from '../../../app/common/form/TextInput';
 import TextArea from '../../../app/common/form/TextArea';
 import SelectInput from '../../../app/common/form/SelectInput';
+import {
+  composeValidators,
+  combineValidators,
+  isRequired,
+  hasLengthGreaterThan,
+} from 'revalidate';
 
 const category = [
   { key: 'drinks', text: 'Drinks', value: 'drinks' },
@@ -35,7 +41,13 @@ class EventForm extends Component {
   };
 
   render() {
-    const { history, initialValues } = this.props;
+    const {
+      history,
+      initialValues,
+      invalid,
+      submitting,
+      pristine,
+    } = this.props;
     return (
       <Grid>
         <Grid.Column width={10}>
@@ -77,7 +89,11 @@ class EventForm extends Component {
                 placeholder='Event Date'
               />
 
-              <Button positive type='submit'>
+              <Button
+                disabled={invalid || submitting || pristine}
+                positive
+                type='submit'
+              >
                 Submit
               </Button>
               <Button
@@ -97,6 +113,19 @@ class EventForm extends Component {
     );
   }
 }
+
+const validate = combineValidators({
+  title: isRequired({ message: 'Title is required' }),
+  category: isRequired({ message: 'category is required' }),
+  description: composeValidators(
+    isRequired({ message: 'please enter a description' }),
+    hasLengthGreaterThan(4)({
+      message: 'description needs to be at least 5 characters',
+    })
+  )(),
+  city: isRequired('city'),
+  venue: isRequired('venue'),
+});
 
 const mapStateToProps = (state, ownProps) => {
   const eventId = ownProps.match.params.id;
@@ -118,4 +147,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(reduxForm({ form: 'eventForm' })(EventForm));
+)(reduxForm({ form: 'eventForm', validate })(EventForm));
