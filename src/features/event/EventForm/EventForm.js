@@ -7,7 +7,7 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import TextInput from '../../../app/common/form/TextInput';
 import TextArea from '../../../app/common/form/TextArea';
 import SelectInput from '../../../app/common/form/SelectInput';
-import DateInput from '../../../app/common/form/DateInput';
+// import DateInput from '../../../app/common/form/DateInput';
 import {
   composeValidators,
   combineValidators,
@@ -84,14 +84,14 @@ class EventForm extends Component {
                 component={TextInput}
                 placeholder='Event Venue'
               />
-              <Field
+              {/* <Field
                 name='date'
                 component={DateInput}
                 dateFormat='dd LLLL yyyy h:mm a'
                 showTimeSelect
                 timeFormat='HH:mm'
                 placeholder='Event Date'
-              />
+              /> */}
 
               <Button
                 disabled={invalid || submitting || pristine}
@@ -129,7 +129,7 @@ const validate = combineValidators({
   )(),
   city: isRequired('city'),
   venue: isRequired('venue'),
-  date: isRequired('date'),
+  // date: isRequired('date'),
 });
 
 const mapStateToProps = (state, ownProps) => {
